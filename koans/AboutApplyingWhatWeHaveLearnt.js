@@ -92,30 +92,70 @@ describe("About Applying What We Have Learnt", function() {
         .value();
 
     expect(mushroomCount).toBe(2);
+    // expect(ingredientCount['mushrooms']).toBe(2);
   });
 
   /*********************************************************************************/
   /* UNCOMMENT FOR EXTRA CREDIT */
-  /*
-  it("should find the largest prime factor of a composite number", function () {
 
+  it("should find the largest prime factor of a composite number", function () {
+    function findLargestPrimeFactor(n) {
+      var maxPrime = -1;
+      while(n % 2 === 0) {
+        maxPrime = 2;
+        n /= 2;
+      }
+
+      for(var i=3; i<=n; i+=2) {
+        while(n % i === 0) {
+          maxPrime = i;
+          n /= i;
+        }
+      }
+
+      if(n > 2) maxPrime = n;
+      return maxPrime;
+    }
+
+    expect(findLargestPrimeFactor(20)).toBe(5);
+    expect(findLargestPrimeFactor(21)).toBe(7);
+    expect(findLargestPrimeFactor(22)).toBe(11);
   });
 
   it("should find the largest palindrome made from the product of two 3 digit numbers", function () {
+    function largestPalindrome(num1, num2) {
+      var resString = (num1 * num2).toString();
+      var isPalindrome = function(item) {
+        return item.split('').reverse().join('') === item;
+      }
+      // brute force
+      var res = '';
+      for(var i=0; i<resString.length; i++) {
+        for(var j=i; j<resString.length; j++) {
+          var sub = resString.substring(i, j+1);
+          if(isPalindrome(sub) && sub.length > res.length) {
+            res = sub;
+          }
+        }
+      }
+      return res.length > 1 ? res : "No Palindrome";
+    }
 
+    expect(largestPalindrome(111, 111)).toBe("12321");
+    expect(largestPalindrome(123, 321)).toBe("No Palindrome");
+    expect(largestPalindrome(110, 112)).toBe("232");
   });
 
-  it("should find the smallest number divisible by each of the numbers 1 to 20", function () {
+  // it("should find the smallest number divisible by each of the numbers 1 to 20", function () {
 
+  // });
 
-  });
+  // it("should find the difference between the sum of the squares and the square of the sums", function () {
 
-  it("should find the difference between the sum of the squares and the square of the sums", function () {
+  // });
 
-  });
+  // it("should find the 10001st prime", function () {
 
-  it("should find the 10001st prime", function () {
+  // });
 
-  });
-  */
 });
